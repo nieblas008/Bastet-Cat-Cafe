@@ -31,8 +31,7 @@ Las versiones móvil/tablet y el modo oscuro **no entran en este pase**.
 
 ## Cómo verlo
 
-`index.html` es un archivo autocontenido (fuentes e imágenes van embebidas). Necesita servirse por HTTP —
-abrirlo con doble clic desde `file://` no funciona bien.
+`index.html` es un solo archivo de ~3 MB. Necesita servirse por HTTP:
 
 ```bash
 python3 -m http.server 8899
@@ -40,9 +39,14 @@ python3 -m http.server 8899
 
 Luego abre <http://localhost:8899/index.html>.
 
-Ojo: **el prototipo es interactivo**. Los filtros de la página de gatitos funcionan de verdad, y varios
-módulos tienen "tweaks" para probar estados (`gatosEnAdopcion`, `estadoCafe`) — sirve para ver qué pasa
-cuando hay 0 gatos, 2 o 14, o cuando el café está cerrado.
+**Ábrelo con internet.** Las fuentes sí van embebidas, pero las fotos de los gatos todavía se piden a
+Unsplash en tiempo de carga: sin red el prototipo navega bien pero las fichas salen sin foto. Si lo vas a
+enseñar en una reunión, cárgalo antes para que quede en caché.
+
+Ojo: **el prototipo es interactivo**. Los filtros de la página de gatitos funcionan de verdad, y hay tres
+"tweaks" para probar estados — cuántos gatos hay en adopción (0 a 7), si el café está abierto o cerrado, y
+si se ven las notas ámbar. En el archivo exportado no hay panel para moverlos; se editan a mano o desde el
+lienzo. Cómo hacerlo, en la [nota técnica](docs/prototipo.md).
 
 ---
 
@@ -102,7 +106,7 @@ iPad 11″ horizontal, de pie a ~1 m, targets ≥64dp y tipografía +25%. Supues
 
 Los filtros (edad, sexo, convivencia, estado) **funcionan en el prototipo**. Tres estados de gato que nunca se
 aplanan en uno solo: **en adopción / residente de casa / en tratamiento**. 10 gatos placeholder con historias
-inventadas y fotos de Unsplash.
+inventadas y fotos de Unsplash: 7 en adopción, 2 residentes de casa y 1 en tratamiento.
 
 ### 06 · Perfil de gato
 
@@ -176,8 +180,10 @@ y al mes de parir otra vez, con camadas de 3 a 6 gatitos), además de los riesgo
 
 ```
 .
-├── index.html              # prototipo de diseño, autocontenido (~3 MB)
-├── docs/screenshots/       # capturas del prototipo, usadas en este README
+├── index.html              # prototipo de diseño, archivo único (~3 MB)
+├── docs/
+│   ├── prototipo.md        # nota técnica del archivo: tweaks, datos, qué va embebido
+│   └── screenshots/        # capturas del prototipo, usadas en este README
 ├── meetings/
 │   └── meeting-01.md       # notas de la primera reunión con el cliente
 └── README.md
