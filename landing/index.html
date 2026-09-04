@@ -117,8 +117,8 @@
   .hero-media::after{
     content:""; position:absolute; inset:0;
     background:
-      linear-gradient(180deg, rgba(255,248,248,.10) 0%, rgba(255,248,248,0) 30%, rgba(255,240,244,.55) 70%, rgba(255,248,248,.96) 100%),
-      linear-gradient(90deg, rgba(255,240,244,.55) 0%, rgba(255,240,244,.18) 45%, rgba(255,240,244,0) 70%);
+      linear-gradient(180deg, rgba(255,248,248,.04) 0%, rgba(255,248,248,0) 40%, rgba(255,240,244,.40) 75%, rgba(255,248,248,.94) 100%),
+      linear-gradient(90deg, rgba(255,240,244,.35) 0%, rgba(255,240,244,.08) 45%, rgba(255,240,244,0) 65%);
   }
 
   .hero-copy{
@@ -170,57 +170,43 @@
   .stat b{ font-family:var(--font-display); font-weight:800; font-size:24px; line-height:1; letter-spacing:-.02em; color:var(--on-surface); }
   .stat span{ font-size:12px; font-weight:600; color:var(--on-surface-variant); letter-spacing:.03em; }
 
-  /* ── Michis flotantes ── */
-  .cats{
-    position:relative; height:min(78vh, 720px); min-height:520px; width:100%;
-    pointer-events:none;
+  /* ── Carrusel de michis ── */
+  .carousel{ position:relative; width:100%; min-width:0; max-width:540px; justify-self:end; }
+  .track{
+    display:flex; gap:16px; overflow-x:auto; scroll-snap-type:x mandatory; scroll-behavior:smooth;
+    scrollbar-width:none; -webkit-overflow-scrolling:touch; overscroll-behavior-x:contain;
+    padding:6px; margin:-6px;
   }
-  .cat{
-    position:absolute; width:var(--w, 200px); aspect-ratio:1;
-    left:var(--x); top:var(--y); pointer-events:auto; cursor:pointer; touch-action:manipulation;
-    transform: rotate(var(--rot, 0deg)) translate3d(var(--px,0), var(--py,0), 0);
-    transition: transform .8s var(--ease);
-    animation: float var(--dur, 7s) ease-in-out var(--delay, 0s) infinite alternate, pop .9s var(--spring) var(--in, 0s) both;
-    -webkit-tap-highlight-color: transparent;
+  .track::-webkit-scrollbar{ display:none; }
+  .slide{
+    flex:0 0 100%; margin:0; aspect-ratio:4/5; max-height:min(70vh, 640px); overflow:hidden;
+    scroll-snap-align:start; scroll-snap-stop:always; background:var(--surface-highest);
+    border-radius: 36px 120px 36px 36px;
+    box-shadow: 0 30px 50px -28px rgba(62,0,34,.5), 0 0 0 6px rgba(255,248,248,.85);
+    transition: border-radius .9s var(--spring), transform .6s var(--spring);
+    animation: rise .9s var(--ease) .15s both;
   }
-  @keyframes float{ from{ margin-top:0 } to{ margin-top: -14px } }
-  @keyframes pop{ from{ opacity:0; scale:.6 } to{ opacity:1; scale:1 } }
-  .cat .photo{
-    width:100%; height:100%; overflow:hidden; background:var(--surface-highest);
-    border-radius: var(--blob-a);
-    box-shadow: 0 24px 40px -20px rgba(62,0,34,.45), 0 0 0 6px rgba(255,248,248,.85);
-    transition: border-radius .9s var(--spring), transform .6s var(--spring), box-shadow .4s var(--ease);
-    display:grid; place-items:center; font-size:64px;
-  }
-  .cat .photo img{ width:100%; height:100%; object-fit:cover; transition: transform 1.2s var(--ease); }
-  .cat:nth-child(3n+2) .photo{ border-radius: var(--blob-b); }
-  .cat:nth-child(3n+3) .photo{ border-radius: var(--blob-c); }
-  .cat:hover .photo, .cat.active .photo{
-    border-radius: var(--blob-c); transform: scale(1.06);
-    box-shadow: 0 34px 50px -22px rgba(62,0,34,.5), 0 0 0 6px var(--primary-container);
-  }
-  .cat:nth-child(3n+2):hover .photo, .cat:nth-child(3n+2).active .photo{ border-radius: var(--blob-a); }
-  .cat:nth-child(3n+3):hover .photo, .cat:nth-child(3n+3).active .photo{ border-radius: var(--blob-b); }
-  .cat:hover .photo img, .cat.active .photo img{ transform: scale(1.08); }
+  .slide:nth-child(even){ border-radius: 120px 36px 36px 36px; }
+  .slide:hover{ border-radius: 36px 36px 120px 36px; }
+  .slide:nth-child(even):hover{ border-radius: 36px 36px 36px 120px; }
+  .slide img{ width:100%; height:100%; object-fit:cover; transition: transform 1.2s var(--ease); }
+  .slide:hover img{ transform:scale(1.04); }
+  .slide .ph{ width:100%; height:100%; display:grid; place-items:center; font-size:72px; }
 
-  .cat .tag{
-    position:absolute; left:50%; bottom:-14px; transform:translate(-50%, 6px) scale(.9);
-    display:inline-flex; align-items:center; gap:6px; white-space:nowrap;
-    padding:7px 13px 7px 10px; border-radius:var(--pill);
-    background:rgba(255,248,248,.96); color:var(--on-surface); font-size:13px; font-weight:600;
-    box-shadow:0 8px 18px -8px rgba(62,0,34,.35);
-    opacity:0; transition: opacity .3s var(--ease), transform .5s var(--spring);
+  .ctrl{ display:flex; align-items:center; justify-content:center; gap:14px; margin-top:18px; }
+  .arrow{
+    width:48px; height:48px; border-radius:50%; border:0; cursor:pointer; display:grid; place-items:center;
+    background:rgba(255,248,248,.85); color:var(--primary); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+    box-shadow:0 8px 18px -10px rgba(62,0,34,.4);
+    transition: transform .45s var(--spring), background .2s, border-radius .45s var(--spring);
+    -webkit-tap-highlight-color:transparent;
   }
-  .cat .tag .dot{ width:8px; height:8px; border-radius:50%; background:var(--primary); }
-  .cat.residente .tag .dot{ background:var(--tertiary); }
-  .cat .tag small{ font-weight:500; color:var(--on-surface-variant); }
-  .cat:hover .tag, .cat.active .tag{ opacity:1; transform:translate(-50%, 0) scale(1); }
-
-  .cats .hint{
-    position:absolute; right:0; bottom:0; margin:0;
-    font-size:12px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--on-surface-variant);
-    background:rgba(255,248,248,.7); padding:6px 12px; border-radius:var(--pill);
-  }
+  .arrow svg{ width:22px; height:22px; }
+  .arrow:hover{ background:var(--primary-container); transform:scale(1.08); }
+  .arrow:active{ transform:scale(.92); border-radius:16px; }
+  .dots{ display:flex; gap:6px; padding:8px 12px; border-radius:var(--pill); background:rgba(255,248,248,.75); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); }
+  .dot-btn{ width:8px; height:8px; border-radius:var(--pill); border:0; padding:0; cursor:pointer; background:var(--outline-variant); transition: width .5s var(--spring), background .25s; }
+  .dot-btn[aria-current="true"]{ width:26px; background:var(--primary); }
 
   /* ── Lo que viene ── */
   .soon{ padding: clamp(48px, 7vw, 96px) var(--pad); }
@@ -263,14 +249,13 @@
 
   /* ── Responsive ── */
   @media (max-width: 980px){
-    .hero{ grid-template-columns:1fr; align-items:end; gap:16px; padding-top: calc(var(--pad) + 72px); }
+    .hero{ grid-template-columns:minmax(0,1fr); align-items:end; gap:16px; padding-top: calc(var(--pad) + 72px); }
     .hero-copy{ max-width:none; }
-    .cats{ height:auto; min-height:0; margin:8px calc(var(--pad) * -1) 0; padding:24px var(--pad) 30px;
-      display:flex; gap:22px; overflow-x:auto; overscroll-behavior-x:contain; scroll-snap-type:x mandatory; scrollbar-width:none; }
-    .cats::-webkit-scrollbar{ display:none; }
-    .cat{ position:static; flex:none; width:clamp(150px, 44vw, 210px); scroll-snap-align:center; transform: rotate(var(--rot, 0deg)); }
-    .cat .tag{ opacity:1; transform:translate(-50%, 0) scale(1); }
-    .cats .hint{ display:none; }
+    .carousel{ max-width:none; width:calc(100% + var(--pad) * 2); justify-self:start; margin:12px 0 0 calc(var(--pad) * -1); }
+    .track{ gap:14px; padding:6px var(--pad); margin:-6px 0; scroll-padding-inline: var(--pad); }
+    .slide{ flex:0 0 min(78vw, 360px); max-height:none; border-radius:28px 88px 28px 28px; }
+    .slide:nth-child(even){ border-radius:88px 28px 28px 28px; }
+    .ctrl{ padding:0 var(--pad); }
     .cards{ grid-template-columns:1fr; }
   }
   @media (max-width: 560px){
@@ -332,8 +317,13 @@
       </div>
     </div>
 
-    <div class="cats" id="cats" aria-label="Algunos de los michis que viven en el café">
-      <p class="hint" aria-hidden="true">Pasa el cursor por los michis</p>
+    <div class="carousel" aria-roledescription="carrusel" aria-label="Fotos de los michis del café">
+      <div class="track" id="track"></div>
+      <div class="ctrl">
+        <button class="arrow" id="prev" type="button" aria-label="Foto anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+        <div class="dots" id="dots" role="tablist" aria-label="Ir a la foto"></div>
+        <button class="arrow" id="next" type="button" aria-label="Siguiente foto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg></button>
+      </div>
     </div>
   </section>
 
@@ -364,39 +354,23 @@
 
 <script>
 /* ══════════════════════════════════════════════════════════════════════
-   CONFIG · lo único que hay que editar cuando lleguen las fotos y links.
-   - Fotos: sube los archivos a landing/img/ y pon la ruta, p. ej. 'img/fachada.jpg'
-     (mientras tanto se usan fotos de Unsplash como placeholder).
+   CONFIG · lo único que hay que editar para cambiar fotos y links.
+   - Las fotos viven en landing/img/. Agrega o quita entradas en `fotos`.
    - Links vacíos ('') ocultan su botón automáticamente.
    ══════════════════════════════════════════════════════════════════════ */
-const unsplash = id => 'https://images.unsplash.com/photo-' + id + '?auto=format&fit=crop&w=900&q=72';
-
 const CONFIG = {
-  fachada: 'https://images.unsplash.com/photo-1453614512568-c4024d13c247?auto=format&fit=crop&w=2200&q=78', // → 'img/fachada.jpg'
-  instagram: 'https://www.instagram.com/bastetcatcafe',   // ⚠ confirmar handle real
-  facebook:  '',                                          // p. ej. 'https://www.facebook.com/bastetcatcafe'
+  fachada: 'img/fachada.jpg',
+  instagram: 'https://www.instagram.com/bastetcatcafe',
+  facebook:  '',
   whatsapp:  '',                                          // p. ej. 'https://wa.me/526641234567'
   maps:      '',                                          // link de Google Maps del café
-  gatos: [
-    // estado: 'adopcion' | 'residente'
-    { nombre: 'Frijolita',  estado: 'adopcion',  foto: unsplash('1514888286974-6c03e2ca1dba') }, // → 'img/gatos/frijolita.jpg'
-    { nombre: 'Ramsés',     estado: 'residente', foto: unsplash('1573865526739-10659fec78a5') },
-    { nombre: 'Nube',       estado: 'adopcion',  foto: unsplash('1592194996308-7b43878e84a6') },
-    { nombre: 'Tamal',      estado: 'adopcion',  foto: unsplash('1574158622682-e40e69881006') },
-    { nombre: 'Cleo',       estado: 'residente', foto: unsplash('1529778873920-4da4926a72c2') },
-    { nombre: 'Canela',     estado: 'adopcion',  foto: unsplash('1511044568932-338cba0ad803') },
+  fotos: [
+    { src: 'img/gatos/seth-aniversario.jpg', alt: 'Gato siamés junto al pastel del 11.º aniversario de Bastet Cat Café' },
+    { src: 'img/gatos/atigrado-puerta.jpg',  alt: 'Gato atigrado sentado al sol junto a la puerta del café' },
+    { src: 'img/gatos/seth-cumple.jpg',      alt: 'Gato siamés olfateando su pastel de cumpleaños' },
   ],
+  autoplayMs: 4500,   // 0 para desactivar el avance automático
 };
-
-/* ── Posiciones de los michis en escritorio (porcentaje del área derecha) ── */
-const LAYOUT = [
-  { x: 4,  y: 6,  w: 200, rot: -6 },
-  { x: 48, y: 0,  w: 250, rot:  4 },
-  { x: 16, y: 40, w: 180, rot:  7 },
-  { x: 55, y: 42, w: 230, rot: -5 },
-  { x: 0,  y: 68, w: 170, rot: -8 },
-  { x: 42, y: 72, w: 165, rot:  6 },
-];
 
 /* ── Links (se ocultan si están vacíos) ── */
 const link = (id, url) => { const a = document.getElementById(id); if (!a) return; if (url) a.href = url; else a.classList.add('hide'); };
@@ -410,48 +384,46 @@ const fachada = document.getElementById('fachada');
 fachada.addEventListener('error', () => { document.getElementById('media').classList.add('is-ph'); fachada.remove(); });
 fachada.src = CONFIG.fachada;
 
-/* ── Michis ── */
-const cats = document.getElementById('cats');
-const frag = document.createDocumentFragment();
-CONFIG.gatos.forEach((g, i) => {
-  const L = LAYOUT[i % LAYOUT.length];
-  const el = document.createElement('div');
-  el.className = 'cat ' + (g.estado === 'residente' ? 'residente' : 'adopcion');
-  el.tabIndex = 0;
-  el.setAttribute('role', 'img');
-  el.setAttribute('aria-label', g.nombre + (g.estado === 'residente' ? ', residente del café' : ', en adopción'));
-  el.style.cssText = `--x:${L.x}%; --y:${L.y}%; --w:${L.w}px; --rot:${L.rot}deg; --dur:${6 + (i % 3) * 1.3}s; --delay:${-i * 1.7}s; --in:${.15 + i * .09}s`;
+/* ── Carrusel ── */
+const track = document.getElementById('track');
+const dots  = document.getElementById('dots');
+const slides = CONFIG.fotos.map((f, i) => {
+  const fig = document.createElement('figure'); fig.className = 'slide';
+  fig.setAttribute('role', 'group'); fig.setAttribute('aria-label', `Foto ${i + 1} de ${CONFIG.fotos.length}`);
   const img = document.createElement('img');
-  img.src = g.foto; img.alt = ''; img.loading = 'lazy'; img.decoding = 'async';
-  img.addEventListener('error', () => { img.replaceWith(Object.assign(document.createElement('span'), { textContent: '🐱' })); });
-  const photo = document.createElement('div'); photo.className = 'photo'; photo.append(img);
-  const tag = document.createElement('span'); tag.className = 'tag';
-  tag.innerHTML = `<span class="dot"></span>${g.nombre} <small>· ${g.estado === 'residente' ? 'residente' : 'en adopción'}</small>`;
-  el.append(photo, tag);
-  // Toque en móvil / teclado: muestra el nombre y "salta"
-  el.addEventListener('click', () => { document.querySelectorAll('.cat.active').forEach(c => c !== el && c.classList.remove('active')); el.classList.toggle('active'); });
-  el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); el.click(); } });
-  frag.append(el);
+  img.src = f.src; img.alt = f.alt || ''; img.decoding = 'async'; if (i > 0) img.loading = 'lazy';
+  img.addEventListener('error', () => { img.replaceWith(Object.assign(document.createElement('div'), { className: 'ph', textContent: '🐱' })); });
+  fig.append(img); track.append(fig);
+  const d = document.createElement('button'); d.className = 'dot-btn'; d.type = 'button'; d.setAttribute('role', 'tab');
+  d.setAttribute('aria-label', `Foto ${i + 1}`); d.addEventListener('click', () => go(i)); dots.append(d);
+  return fig;
 });
-cats.prepend(frag);
+let current = 0;
+const go = i => { current = (i + slides.length) % slides.length; slides[current].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' }); };
+const mark = () => [...dots.children].forEach((d, i) => d.setAttribute('aria-current', i === current ? 'true' : 'false'));
+mark();
+document.getElementById('prev').addEventListener('click', () => { go(current - 1); rest(); });
+document.getElementById('next').addEventListener('click', () => { go(current + 1); rest(); });
 
-/* ── Parallax suave con el cursor (solo escritorio, respeta reduced-motion) ── */
-const fine = matchMedia('(pointer:fine) and (min-width:981px)');
-const noMotion = matchMedia('(prefers-reduced-motion: reduce)');
-if (fine.matches && !noMotion.matches) {
-  const hero = document.querySelector('.hero');
-  const items = [...cats.querySelectorAll('.cat')];
-  let raf = 0, mx = 0, my = 0;
-  hero.addEventListener('pointermove', e => {
-    const r = hero.getBoundingClientRect();
-    mx = (e.clientX - r.left) / r.width - .5; my = (e.clientY - r.top) / r.height - .5;
-    if (!raf) raf = requestAnimationFrame(() => {
-      items.forEach((c, i) => { const d = 10 + (i % 3) * 8; c.style.setProperty('--px', (mx * d).toFixed(1) + 'px'); c.style.setProperty('--py', (my * d).toFixed(1) + 'px'); });
-      raf = 0;
-    });
-  });
-  hero.addEventListener('pointerleave', () => items.forEach(c => { c.style.setProperty('--px', '0px'); c.style.setProperty('--py', '0px'); }));
-}
+// Detecta la foto visible al deslizar con el dedo
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { current = slides.indexOf(e.target); mark(); } });
+}, { root: track, threshold: .6 });
+slides.forEach(sl => io.observe(sl));
+
+// Avance automático: se pausa al tocar, pasar el cursor o enfocar, y respeta reduced-motion
+let timer = 0;
+const noMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const play = () => { if (!CONFIG.autoplayMs || noMotion || slides.length < 2) return; clearInterval(timer); timer = setInterval(() => go(current + 1), CONFIG.autoplayMs); };
+const stop = () => clearInterval(timer);
+const rest = () => { stop(); setTimeout(play, CONFIG.autoplayMs * 2); };
+const box = document.querySelector('.carousel');
+box.addEventListener('pointerenter', stop); box.addEventListener('pointerleave', play);
+box.addEventListener('touchstart', () => { stop(); rest(); }, { passive: true });
+box.addEventListener('focusin', stop); box.addEventListener('focusout', play);
+document.addEventListener('visibilitychange', () => document.hidden ? stop() : play());
+play();
+
 </script>
 </body>
 </html>

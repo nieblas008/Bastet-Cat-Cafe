@@ -1,10 +1,11 @@
 # Fotos de la landing
 
-Sube aquí las fotos reales y actualiza las rutas en el bloque `CONFIG` de `../index.html`.
+Fotos reales del café, exportadas para web (sin metadatos EXIF). Para cambiar o agregar fotos,
+edita el bloque `CONFIG` al final de `../index.html`.
 
-| Archivo sugerido | Uso | Recomendación |
-|---|---|---|
-| `fachada.jpg` | Fondo principal (el café por fuera) | Horizontal, ~2000 px de ancho, JPG comprimido (< 500 KB) |
-| `gatos/<nombre>.jpg` | Tarjetas flotantes de los michis | Cuadradas o casi, ~900 px, el gato centrado (la máscara recorta las orillas) |
+| Archivo | Uso |
+|---|---|
+| `fachada.jpg` | Fondo principal (el café por fuera), 2000 px de ancho |
+| `gatos/*.jpg` | Carrusel de fotos, 1400 px de alto |
 
-Mientras no existan, la página usa fotos de Unsplash como placeholder.
+Los originales están fuera del repo (carpeta `client-images/`, no versionada).
