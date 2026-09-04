@@ -61,12 +61,13 @@ Paleta, tipografía, forma, componentes y las tres únicas animaciones del sitio
 
 ![Style tile](docs/screenshots/01-fundaciones-style-tile.png)
 
-- **Color:** roles M3 derivados de `#EC2A7B`. ⚠️ Ese rosa es un **stand-in**: hay que muestrear el hex del
-  logo real y regenerar la paleta (es un solo cambio).
+- **Color:** roles M3 derivados del rosa oficial de la marca, `#EE1E82` (muestreado del logo). Los tonos
+  salen de paletas tonales HCT: primary T40, containers T90, on-containers T10; neutrales con croma 6 (y 9
+  para neutral-variant) para que los blancos queden entintados de rosa en vez de grises.
 - **Tipografía:** [Bricolage Grotesque](https://fonts.google.com/specimen/Bricolage+Grotesque) para títulos +
   [Figtree](https://fonts.google.com/specimen/Figtree) para cuerpo. Ambas de Google Fonts, gratis y variables.
-- **Superficies:** blancos entintados de rosa (`#FFF8F8` → `#EFDEE4`), nada de gris. On-surface espresso-ciruela
-  `#221A1D`, nunca negro puro.
+- **Superficies:** blancos entintados de rosa (`#FFF8F8` → `#EFDFE1`), nada de gris. On-surface espresso-ciruela
+  `#22191B`, nunca negro puro.
 - **Accesibilidad:** contraste AA (cuerpo ≥4.5:1, UI ≥3:1), foco visible, targets ≥48dp, `prefers-reduced-motion`
   respetado.
 
@@ -159,7 +160,7 @@ y al mes de parir otra vez, con camadas de 3 a 6 gatitos), además de los riesgo
 
 - [ ] **Orden de las pestañas** — fue el único comentario que hicieron en la reunión 1. Falta pedirles el orden que quieren.
 - [ ] **Pestaña de concientización** — propuesta mía, todavía no la ven. Sería la sección que hace que Bastet sea más que "un café con gatos".
-- [ ] **Paleta desde el logo real** → el logo ya está en el repo (`Logo.svg`, rosa `#EE1E82`); falta regenerar los roles M3 desde ese hex (hoy derivan del stand-in `#EC2A7B`).
+- [ ] **Recapturar `docs/screenshots/`** — se tomaron con el rosa stand-in `#EC2A7B`, antes de la paleta oficial.
 - [ ] **Fotos reales** de la dueña en lugar de Unsplash (las máscaras blob perdonan fotos de celular movidas).
 - [ ] **Contenido real:** menú y precios, horario, gatos, eventos, necesidades del mes, tiers de apadrinamiento.
 - [ ] **Dirección y teléfono reales** (los del prototipo son falsos a propósito).
