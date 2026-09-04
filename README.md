@@ -159,7 +159,7 @@ y al mes de parir otra vez, con camadas de 3 a 6 gatitos), además de los riesgo
 
 - [ ] **Orden de las pestañas** — fue el único comentario que hicieron en la reunión 1. Falta pedirles el orden que quieren.
 - [ ] **Pestaña de concientización** — propuesta mía, todavía no la ven. Sería la sección que hace que Bastet sea más que "un café con gatos".
-- [ ] **Logo real** → muestrear el hex y regenerar la paleta.
+- [ ] **Paleta desde el logo real** → el logo ya está en el repo (`Logo.svg`, rosa `#EE1E82`); falta regenerar los roles M3 desde ese hex (hoy derivan del stand-in `#EC2A7B`).
 - [ ] **Fotos reales** de la dueña en lugar de Unsplash (las máscaras blob perdonan fotos de celular movidas).
 - [ ] **Contenido real:** menú y precios, horario, gatos, eventos, necesidades del mes, tiers de apadrinamiento.
 - [ ] **Dirección y teléfono reales** (los del prototipo son falsos a propósito).
