@@ -1,0 +1,321 @@
+@import "tailwindcss";
+
+/* ── Tokens · Material 3 Expressive, roles derivados del rosa oficial #EE1E82 ──
+   Los mismos valores de landing/index.html y del prototipo de Claude Design. */
+@theme {
+  --color-brand: #ee1e82;
+  --color-primary: #b90062;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #ffd9e2;
+  --color-on-primary-container: #3e001d;
+  --color-secondary: #564147;
+  --color-secondary-container: #f9dbe2;
+  --color-on-secondary-container: #27171c;
+  --color-tertiary: #895105;
+  --color-tertiary-container: #ffdcbd;
+  --color-on-tertiary-container: #2c1600;
+  --color-success: #2f6b1f;
+  --color-success-container: #daefcb;
+  --color-on-success-container: #203019;
+  --color-error: #ba1a1a;
+  --color-error-container: #ffdad6;
+  --color-on-error-container: #410002;
+  --color-surface: #fff8f8;
+  --color-surface-low: #fff0f2;
+  --color-surface-mid: #fbeaed;
+  --color-surface-high: #f5e4e7;
+  --color-surface-highest: #efdfe1;
+  --color-on-surface: #22191b;
+  --color-on-surface-variant: #524347;
+  --color-outline: #857277;
+  --color-outline-variant: #d7c1c6;
+  --color-inverse-surface: #372e30;
+  --color-inverse-on-surface: #fdedef;
+
+  --font-display: var(--font-bricolage), "Figtree", system-ui, sans-serif;
+  --font-sans: var(--font-figtree), system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 28px;
+  --radius-2xl: 36px;
+
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+}
+
+:root {
+  color-scheme: light;
+  --blob-a: 58% 42% 55% 45% / 52% 46% 54% 48%;
+  --blob-b: 44% 56% 48% 52% / 56% 44% 58% 42%;
+  --blob-c: 52% 48% 42% 58% / 48% 55% 45% 52%;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-surface);
+  color: var(--color-on-surface);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 3px;
+  border-radius: 12px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@layer components {
+  .font-display {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
+  .container-site {
+    width: 100%;
+    max-width: 1200px;
+    margin-inline: auto;
+    padding-inline: clamp(16px, 4vw, 48px);
+  }
+
+  /* Botones M3: forma de píldora que se "aprieta" al tocar */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 48px;
+    padding: 0 22px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 1;
+    border: 1.5px solid transparent;
+    background: var(--color-primary);
+    color: var(--color-on-primary);
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      transform 0.45s var(--ease-spring),
+      border-radius 0.45s var(--ease-spring),
+      background 0.2s,
+      box-shadow 0.3s;
+    box-shadow: 0 8px 20px -12px rgba(185, 0, 98, 0.55);
+    -webkit-tap-highlight-color: transparent;
+  }
+  .btn:hover {
+    transform: translateY(-1px);
+  }
+  .btn:active {
+    transform: scale(0.96);
+    border-radius: 18px;
+  }
+  .btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    transform: none;
+  }
+  .btn-tonal {
+    background: var(--color-secondary-container);
+    color: var(--color-on-secondary-container);
+    box-shadow: none;
+  }
+  .btn-outlined {
+    background: transparent;
+    color: var(--color-primary);
+    border-color: var(--color-outline);
+    box-shadow: none;
+  }
+  .btn-outlined:hover {
+    background: var(--color-surface-high);
+  }
+  .btn-text {
+    background: transparent;
+    color: var(--color-primary);
+    box-shadow: none;
+    padding-inline: 12px;
+  }
+  .btn-danger {
+    background: var(--color-error-container);
+    color: var(--color-on-error-container);
+    box-shadow: none;
+  }
+  .btn-sm {
+    min-height: 40px;
+    padding: 0 16px;
+    font-size: 14px;
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  .card {
+    background: #fff;
+    border: 1px solid var(--color-outline-variant);
+    border-radius: var(--radius-xl);
+  }
+
+  .blob-a {
+    border-radius: var(--blob-a);
+  }
+  .blob-b {
+    border-radius: var(--blob-b);
+  }
+  .blob-c {
+    border-radius: var(--blob-c);
+  }
+
+  /* Formularios: targets grandes para usarse desde el celular */
+  .field {
+    display: grid;
+    gap: 6px;
+  }
+  .field > span,
+  .field-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-on-surface-variant);
+  }
+  .input {
+    width: 100%;
+    min-height: 48px;
+    padding: 10px 14px;
+    border-radius: var(--radius-md);
+    border: 1.5px solid var(--color-outline-variant);
+    background: #fff;
+    font-size: 16px;
+    color: var(--color-on-surface);
+    transition: border-color 0.2s;
+  }
+  .input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+  }
+  textarea.input {
+    min-height: 110px;
+    resize: vertical;
+  }
+  .hint {
+    font-size: 13px;
+    color: var(--color-on-surface-variant);
+  }
+
+  .check {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    font-size: 15px;
+    cursor: pointer;
+  }
+  .check input {
+    width: 22px;
+    height: 22px;
+    accent-color: var(--color-primary);
+    flex: none;
+  }
+
+  /* Texto largo escrito por el equipo */
+  .prose-bastet {
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--color-on-surface);
+  }
+  .prose-bastet > * + * {
+    margin-top: 1em;
+  }
+  .prose-bastet h2 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 26px;
+    line-height: 1.15;
+    margin-top: 1.6em;
+  }
+  .prose-bastet h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 20px;
+    margin-top: 1.4em;
+  }
+  .prose-bastet ul {
+    list-style: disc;
+    padding-left: 1.3em;
+  }
+  .prose-bastet ol {
+    list-style: decimal;
+    padding-left: 1.3em;
+  }
+  .prose-bastet li + li {
+    margin-top: 0.35em;
+  }
+  .prose-bastet a {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .prose-bastet blockquote {
+    border-left: 4px solid var(--color-primary-container);
+    padding-left: 16px;
+    color: var(--color-on-surface-variant);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.animate-rise {
+  animation: rise 0.8s var(--ease-standard) both;
+}
+
+@keyframes pulse-dot {
+  0% {
+    box-shadow: 0 0 0 0 currentColor;
+  }
+  70% {
+    box-shadow: 0 0 0 8px transparent;
+  }
+  100% {
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+.pulse-dot {
+  animation: pulse-dot 2.2s infinite;
+}
+
+/* Impresión de los QR: solo la hoja, sin el menú del panel */
+@media print {
+  body * { visibility: hidden; }
+  .qr-sheet, .qr-sheet * { visibility: visible; }
+  .qr-sheet { position: absolute; inset: 0 0 auto 0; margin: 2cm auto; }
+}
