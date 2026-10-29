@@ -18,11 +18,11 @@ y **las campañas de concientización** que quieren empezar a hacer.
 
 | | |
 |---|---|
-| **Fase** | Pase 1 · concepto visual |
-| **Qué existe** | Prototipo de diseño navegable (`index.html`) + notas de la reunión 1 |
-| **Qué NO existe** | Código de producción, backend, CMS, dominio, hosting, contenido real |
-| **Última entrega** | Agosto 2026 |
-| **Siguiente** | Confirmar con el cliente el orden de pestañas y el contenido real |
+| **Fase** | Pase 2 · app funcional (sitio + panel + base de datos) |
+| **Qué existe** | Prototipo (`index.html`), app en Next.js (`web/`) y base de datos en Supabase (`supabase/`) |
+| **Qué NO existe** | Dominio, despliegue en Vercel, contenido real cargado, kiosko/iPads, cobro en línea |
+| **Última entrega** | Octubre 2026 |
+| **Siguiente** | Publicar en Vercel, crear la primera admin y que el equipo cargue gatos y menú. Guía: [`web/README.md`](web/README.md) |
 
 El prototipo está hecho a **1440 px, solo escritorio**, sobre **Material 3 Expressive**.
 Las versiones móvil/tablet y el modo oscuro **no entran en este pase**.
@@ -167,7 +167,7 @@ y al mes de parir otra vez, con camadas de 3 a 6 gatitos), además de los riesgo
 - [ ] Confirmar: ¿hay costo de entrada o reservación?
 - [ ] Confirmar: ¿WhatsApp se queda como vía paralela de adopción?
 - [ ] Confirmar: el compromiso de "te respondemos en 3 días" — que lo ponga la dueña.
-- [ ] Definir stack, hosting y dominio. Nada de esto está decidido.
+- [x] Stack: Next.js + Supabase + Vercel. Falta dominio.
 
 ### Ideas mencionadas, sin comprometer
 
@@ -187,6 +187,10 @@ y al mes de parir otra vez, con camadas de 3 a 6 gatitos), además de los riesgo
 │   └── screenshots/        # capturas del prototipo, usadas en este README
 ├── meetings/
 │   └── meeting-01.md       # notas de la primera reunión con el cliente
+├── supabase/
+│   ├── migrations/         # esquema, permisos (RLS), storage y contenido confirmado
+│   └── seed.sql            # datos de ejemplo, solo para desarrollo local
+├── web/                    # la app: sitio público, /panel del equipo y /padrino
 └── README.md
 ```
 
